@@ -3,7 +3,7 @@
 [user1@ip-10-0-0-151 ~]$ cd docker-images/
 [user1@ip-10-0-0-151 docker-images]$ mkdir centos7-base
 [user1@ip-10-0-0-151 docker-images]$ cd centos7-base/
-### 1. Dockerfile 생성
+### 2. Dockerfile 생성
 [user1@ip-10-0-0-151 centos7-base]$ vi Dockerfile
 ```
 Dockerfile
@@ -31,7 +31,7 @@ ENV LANG=ko_KR.utf8 TZ=Asia/Seoul
 CMD ["/bin/bash"]
 ```
 
-### 1. Image 생성
+### 3. Image 생성
 ```
 # docker build -t [이미지명] .
 [user1@ip-10-0-0-151 centos7-base]$ sudo docker build -t centos7-base:7.4 .
@@ -48,7 +48,7 @@ REPOSITORY           TAG                 IMAGE ID            CREATED            
 user1-centos7-base   7.4              04df9befd9c6        About a minute ago   286.5 MB
 ```
 
-### 1. 컨테이너 실행
+### 4. 컨테이너 실행
 ```
 # 컨테이너 실행하고 바로 터미널로 접속
 [user1@ip-10-0-0-151 centos7-base]$ sudo docker run -ti --name=user1-centos7-base centos7-base:7.4
@@ -79,7 +79,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
  ```
 
-### 1. 컨테이너 종료
+### 5. 컨테이너 종료
 ```
 # docker run -ti 로 실행한 경우 빠져나오면 바로 컨테이너가 종료됨
 [root@7048f9eb2833 /]# exit
@@ -90,7 +90,7 @@ CONTAINER ID        IMAGE                COMMAND              CREATED           
 d25d3240a374        httpd                "httpd-foreground"   20 minutes ago       Up 14 minutes               80/tcp              user1-httpd
 ```
 
-###. 컨테이너 삭제
+### 6. 컨테이너 삭제
 ```
 # 종료된 컨테이너 조회
 [user1@ip-10-0-0-151 centos7-base]$ sudo docker ps -a
