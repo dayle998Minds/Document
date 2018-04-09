@@ -6,7 +6,6 @@
 ### 2. Dockerfile 생성
 [user1@ip-10-0-0-151 centos7-base]$ vi Dockerfile
 ```
-Dockerfile
 FROM docker.io/centos:7.4.1708
  
 # 사용자 지정
