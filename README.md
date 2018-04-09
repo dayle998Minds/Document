@@ -1,4 +1,55 @@
-[공통] 마크다운 markdown 작성법
+# 바로 사용법
+## 첫번째 예제
+- 예제
+- 예제
+    - (a) 아이템1
+    - (a) 아이템2
+    - (a) 아이템3
+```
+## 첫번째 예제
+- 예제
+- 예제
+    - (a) 아이템1
+    - (a) 아이템2
+    - (a) 아이템3
+```
+-----
+## 두번째 예제
+- [ ] 내용1
+- [ ] 내용2
+- [ ] 내용3
+```
+## 두번째 예제
+- [ ] 내용1
+- [ ] 내용2
+- [ ] 내용3
+```
+-----
+## 세번째 예제
+> This is a first blockqute.
+>	> This is a second blockqute.
+>	>	> This is a third blockqute.
+```
+## 세번째 예제
+> This is a first blockqute.
+>	> This is a second blockqute.
+>	>	> This is a third blockqute.
+```
+-----
+## 네번째 예제
+> ### This is a H3
+> * List
+>	```
+>	code
+>	```
+```
+## 네번째 예제
+> ### This is a H3
+> * List
+>	```
+>	code
+>	```
+```
 ======================
 ****
 # 마크다운 사용법(문법)
