@@ -1,4 +1,8 @@
-### google Chrome 설치
+### ubuntu launcher 
+gsettings set com.canonical.Unity.Launcher launcher-position Bottom
+
+
+### chrome 설치
 
 ```
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -26,3 +30,9 @@ vi .bashrc
 GIT_PROMPT_ONLY_IN_REPO=1
 source ~/.bash-git-prompt/gitprompt.sh
 ```
+
+### terminator 설치
+```
+$ sudo apt-get install terminator
+```
+
