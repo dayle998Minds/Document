@@ -1,11 +1,11 @@
-### GIT 설치
+### git 설치
 ```
 sudo apt-get install git
 git config --global user.name exampleID
 git config --global user.email example@email.com
 git config --list
 ```
-### git prompt
+### git prompt 설치
 ```
 cd ~
 git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
