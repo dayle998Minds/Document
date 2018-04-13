@@ -100,3 +100,111 @@ CONTAINER ID        IMAGE                COMMAND              CREATED           
 [user1@ip-10-0-0-151 centos7-base]$ sudo docker rm user1-centos7-base
 user1-centos7-base
 ```
+---
+## 명령어 정리
+### Docker Hub 에서 이미지 검색 / search
+```
+16:32 $ docker search ubuntu
+NAME                                                      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+ubuntu                                                    Ubuntu is a Debian-based Linux operating s...   7494      [OK]       
+dorowu/ubuntu-desktop-lxde-vnc                            Ubuntu with openssh-server and NoVNC            178                  [OK]
+rastasheep/ubuntu-sshd                                    Dockerized SSH service, built on top of of...   139                  [OK]
+ansible/ubuntu14.04-ansible                               Ubuntu 14.04 LTS with ansible                   91                   [OK]
+ubuntu-upstart                                            Upstart is an event-based replacement for ...   85        [OK]       
+neurodebian                                               NeuroDebian provides neuroscience research...   47        [OK]       
+ubuntu-debootstrap                                        debootstrap --variant=minbase --components...   37        [OK]       
+```
+
+### 이미지 받기 / pull
+```
+$ sudo docker pull ubuntu:latest
+```
+사용예제
+```
+$ sudo docker pull ubuntu:16.04
+```
+
+### 설치된 이미지 목록 보기 / images
+```
+$ sudo docker images
+```
+
+### 이미지를 컨테이너 생성뒤 Bash Shell을 실행 / run
+```
+docker run <옵션> <이미지 이름> <실행할 파일>
+```
+-i(interactive), -t(Pseudo-tty) 옵션을 Bash Shell에 입력 및 출력 가능\
+--name 컨테이너의 이름\
+
+```
+$ sudo docker run -i -t --name hello ubuntu /bin/bash
+```
+### 컨테이너 목록 출력 / ps
+
+```
+$ sudo docker ps -a
+```
+-a 옵션 : 정지된 컨테이너까지 출력
+
+### 정지된 컨테이너 시작 & 종료  / start & stop
+```
+$ docker start <컨테이너 이름>
+$ docker stop <컨테이너 이름>
+```
+
+### 컨테이너를 재시작 / restart
+```
+$ docker restart <컨테이너 이름>
+```
+### 컨테이너 접속 / attach
+```
+$ docker attach <컨테이너 이름>
+```
+### 외부에서 컨테이너 안에 명령 실행 / exec
+```
+$ docker exec <컨테이너 이름> <명령> <매개 변수>
+```
+### 생성된 컨테이너 삭제 / rm
+```
+$ docker rm <컨테이너 이름>
+```
+### 생성된 이미지 삭제 / rmi
+```
+$ docker rmi <이미지 이름>:<태그>
+```
+
+## 기타 관리 명령
+### 이미지 히스토리 조회 / history
+```
+docker history <이미지 이름>:<태그>
+```
+### 컨테이너에서 파일을 가져오기 / cp
+```
+docker cp <컨테이너 이름>:<경로> <호스트 경로>
+```
+예제
+```
+10:24 $ docker ps -a
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS                   PORTS                  NAMES
+fcece1dcf71c        maum-dev-centos:0.19   "/usr/sbin/sshd -D"      2 days ago          Up 2 days                0.0.0.0:5022->22/tcp   cmdev2
+✔ ~/git/document/docker [master {origin/master}|✚ 1…1] 
+10:24 $ docker cp cmdev2:/etc/nginx/nginx.conf ./
+```
+### 컨테이너의 변경 사항을 이미지 파일로 생성 / commit
+```
+docker commit <옵션> <컨테이너 이름> <이미지 이름>:<태그>
+```
+### 생성된 이미지를 기준으로 컨테이너에 변경된 목록 출력 / diff
+```
+docker diff <컨테이너 이름>
+```
+- A는 추가된 파일, C는 변경된 파일, D는 삭제된 파일
+
+### 이미지또는 컨테이너의 세부 설정 정보를 출력 / inspect
+```
+docker inspect <이미지 또는 컨테이너 이름>
+```
+
+---
+## 참조 사이트
+<http://pyrasis.com/Docker/Docker-HOWTO#section-5>
