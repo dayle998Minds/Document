@@ -178,15 +178,12 @@ $ docker rmi <이미지 이름>:<태그>
 ```
 docker history <이미지 이름>:<태그>
 ```
-### 컨테이너에서 파일을 가져오기 / cp
+### 컨테이너에서 파일 전송 / cp
 ```
 docker cp <컨테이너 이름>:<경로> <호스트 경로>
 ```
 예제
 ```
-10:24 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS                   PORTS                  NAMES
-fcece1dcf71c        maum-dev-centos:0.19   "/usr/sbin/sshd -D"      2 days ago          Up 2 days                0.0.0.0:5022->22/tcp   cmdev2
 ✔ ~/git/document/docker [master {origin/master}|✚ 1…1] 
 10:24 $ docker cp cmdev2:/etc/nginx/nginx.conf ./
 ```
@@ -203,6 +200,28 @@ docker diff <컨테이너 이름>
 ### 이미지또는 컨테이너의 세부 설정 정보를 출력 / inspect
 ```
 docker inspect <이미지 또는 컨테이너 이름>
+```
+---
+## load & save
+### 이미지를 tar파일로 저장 / save
+```
+docker save <옵션> <이미지 이름>:<태그>
+```
+- -o, --output=””: 저장할 파일명을 지정합니다.
+```
+$ sudo docker save -o nginx.tar nginx:latest
+$ sudo docker save -o redis.tar redis:latest
+$ sudo docker save ubuntu:14.04 > ubuntu14.04.tar
+$ sudo docker save ubuntu > ubuntu.tar
+```
+### tar파일에서 이미지를 생성 / load
+```
+docker load <옵션>
+```
+- -i, --input=””: 표준 입력을 사용하지 않고 파일 경로를 설정하여 이미지를 생성합니다.
+```
+$ sudo docker load < ubuntu.tar
+$ sudo docker load -i ubuntu.img
 ```
 
 ---
