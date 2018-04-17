@@ -247,11 +247,11 @@ docker run -t -i \
 ssh -p 10022 root@localhost
 ```
 > run 실행시 자주 사용하는 옵션들
->	> -t, --tty                     Allocate a pseudo-TTY
->	> -i, --interactive             Keep STDIN open even if not attached
->	> -d, --detach                  Run container in background and print container ID  
->	> --name=""                     Assign a name to the container
->	> -v, --volume=[host-src:]container-dest[:<options>]
+>	> -t, --tty                     Allocate a pseudo-TTY\
+>	> -i, --interactive             Keep STDIN open even if not attached\
+>	> -d, --detach                  Run container in background and print container ID  \
+>	> --name=""                     Assign a name to the container\
+>	> -v, --volume=[host-src:]container-dest[:<options>]\
 >	> -p, --publish=[]              Publish a container's port(s) to the host
 
 ---
