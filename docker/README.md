@@ -1,3 +1,10 @@
+## Docker 환경 설정
+### sudo 없이 사용
+```
+sudo usermod -aG docker $USER # 현재 접속중인 사용자에게 권한주기
+sudo usermod -aG docker your-user # your-user 사용자에게 권한주기
+```
+
 ## Docker Image 생성을 위한 Directory 및 파일 구성
 ### 1. Directory생성
 [user1@ip-10-0-0-151 ~]$ cd docker-images/
@@ -223,7 +230,31 @@ docker load <옵션>
 $ sudo docker load < ubuntu.tar
 $ sudo docker load -i ubuntu.img
 ```
+---
+## 빠른 실행
+### 컨테이너 생성후 접속
+```
+mkdir -p ~/centos_share
+
+docker run -t -i \
+  -d \
+  -h centos_host \
+  --name centos_container \
+  -v ~/centos_share:/home/root/git \
+  -p 10022:22 \
+  centos:7.3
+
+ssh -p 10022 root@localhost
+```
+> run 실행시 자주 사용하는 옵션들
+>	> -t, --tty                     Allocate a pseudo-TTY
+>	> -i, --interactive             Keep STDIN open even if not attached
+>	> -d, --detach                  Run container in background and print container ID  
+>	> --name=""                     Assign a name to the container
+>	> -v, --volume=[host-src:]container-dest[:<options>]
+>	> -p, --publish=[]              Publish a container's port(s) to the host
 
 ---
 ## 참조 사이트
 <http://pyrasis.com/Docker/Docker-HOWTO#section-5>
+<https://docs.docker.com/v1.11/engine/reference/commandline/run>
