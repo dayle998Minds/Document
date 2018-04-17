@@ -1,3 +1,10 @@
+## Docker 환경 설정
+### sudo 없이 사용
+```
+sudo usermod -aG docker $USER # 현재 접속중인 사용자에게 권한주기
+sudo usermod -aG docker your-user # your-user 사용자에게 권한주기
+```
+
 ## Docker Image 생성을 위한 Directory 및 파일 구성
 ### 1. Directory생성
 [user1@ip-10-0-0-151 ~]$ cd docker-images/
@@ -100,3 +107,154 @@ CONTAINER ID        IMAGE                COMMAND              CREATED           
 [user1@ip-10-0-0-151 centos7-base]$ sudo docker rm user1-centos7-base
 user1-centos7-base
 ```
+---
+## 명령어 정리
+### Docker Hub 에서 이미지 검색 / search
+```
+16:32 $ docker search ubuntu
+NAME                                                      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+ubuntu                                                    Ubuntu is a Debian-based Linux operating s...   7494      [OK]       
+dorowu/ubuntu-desktop-lxde-vnc                            Ubuntu with openssh-server and NoVNC            178                  [OK]
+rastasheep/ubuntu-sshd                                    Dockerized SSH service, built on top of of...   139                  [OK]
+ansible/ubuntu14.04-ansible                               Ubuntu 14.04 LTS with ansible                   91                   [OK]
+ubuntu-upstart                                            Upstart is an event-based replacement for ...   85        [OK]       
+neurodebian                                               NeuroDebian provides neuroscience research...   47        [OK]       
+ubuntu-debootstrap                                        debootstrap --variant=minbase --components...   37        [OK]       
+```
+
+### 이미지 받기 / pull
+```
+$ sudo docker pull ubuntu:latest
+```
+사용예제
+```
+$ sudo docker pull ubuntu:16.04
+```
+
+### 설치된 이미지 목록 보기 / images
+```
+$ sudo docker images
+```
+
+### 이미지를 컨테이너 생성뒤 Bash Shell을 실행 / run
+```
+docker run <옵션> <이미지 이름> <실행할 파일>
+```
+-i(interactive), -t(Pseudo-tty) 옵션을 Bash Shell에 입력 및 출력 가능\
+--name 컨테이너의 이름\
+
+```
+$ sudo docker run -i -t --name hello ubuntu /bin/bash
+```
+### 컨테이너 목록 출력 / ps
+
+```
+$ sudo docker ps -a
+```
+-a 옵션 : 정지된 컨테이너까지 출력
+
+### 정지된 컨테이너 시작 & 종료  / start & stop
+```
+$ docker start <컨테이너 이름>
+$ docker stop <컨테이너 이름>
+```
+
+### 컨테이너를 재시작 / restart
+```
+$ docker restart <컨테이너 이름>
+```
+### 컨테이너 접속 / attach
+```
+$ docker attach <컨테이너 이름>
+```
+### 외부에서 컨테이너 안에 명령 실행 / exec
+```
+$ docker exec <컨테이너 이름> <명령> <매개 변수>
+```
+### 생성된 컨테이너 삭제 / rm
+```
+$ docker rm <컨테이너 이름>
+```
+### 생성된 이미지 삭제 / rmi
+```
+$ docker rmi <이미지 이름>:<태그>
+```
+
+## 기타 관리 명령
+### 이미지 히스토리 조회 / history
+```
+docker history <이미지 이름>:<태그>
+```
+### 컨테이너에서 파일 전송 / cp
+```
+docker cp <컨테이너 이름>:<경로> <호스트 경로>
+```
+예제
+```
+✔ ~/git/document/docker [master {origin/master}|✚ 1…1] 
+10:24 $ docker cp cmdev2:/etc/nginx/nginx.conf ./
+```
+### 컨테이너의 변경 사항을 이미지 파일로 생성 / commit
+```
+docker commit <옵션> <컨테이너 이름> <이미지 이름>:<태그>
+```
+### 생성된 이미지를 기준으로 컨테이너에 변경된 목록 출력 / diff
+```
+docker diff <컨테이너 이름>
+```
+- A는 추가된 파일, C는 변경된 파일, D는 삭제된 파일
+
+### 이미지또는 컨테이너의 세부 설정 정보를 출력 / inspect
+```
+docker inspect <이미지 또는 컨테이너 이름>
+```
+---
+## load & save
+### 이미지를 tar파일로 저장 / save
+```
+docker save <옵션> <이미지 이름>:<태그>
+```
+- -o, --output=””: 저장할 파일명을 지정합니다.
+```
+$ sudo docker save -o nginx.tar nginx:latest
+$ sudo docker save -o redis.tar redis:latest
+$ sudo docker save ubuntu:14.04 > ubuntu14.04.tar
+$ sudo docker save ubuntu > ubuntu.tar
+```
+### tar파일에서 이미지를 생성 / load
+```
+docker load <옵션>
+```
+- -i, --input=””: 표준 입력을 사용하지 않고 파일 경로를 설정하여 이미지를 생성합니다.
+```
+$ sudo docker load < ubuntu.tar
+$ sudo docker load -i ubuntu.img
+```
+---
+## 빠른 실행
+### 컨테이너 생성후 접속
+```
+mkdir -p ~/centos_share
+
+docker run -t -i \
+  -d \
+  -h centos_host \
+  --name centos_container \
+  -v ~/centos_share:/home/root/git \
+  -p 10022:22 \
+  centos:7.3
+
+ssh -p 10022 root@localhost
+```
+> run 실행시 자주 사용하는 옵션들
+>	> -t, --tty                     Allocate a pseudo-TTY\
+>	> -i, --interactive             Keep STDIN open even if not attached\
+>	> -d, --detach                  Run container in background and print container ID  \
+>	> --name=""                     Assign a name to the container\
+>	> -v, --volume=[host-src:]container-dest[:<options>]\
+>	> -p, --publish=[]              Publish a container's port(s) to the host
+
+---
+## 참조 사이트
+<http://pyrasis.com/Docker/Docker-HOWTO#section-5>
+<https://docs.docker.com/v1.11/engine/reference/commandline/run>
