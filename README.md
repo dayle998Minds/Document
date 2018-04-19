@@ -262,3 +262,25 @@ __double underscores__
 ++underline++
 ~~cancelline~~
 
+## 테이블
+### 테이블 생성
+```
+Header 1 | Header 2
+--------- | ---------
+Content 1 | Content 3
+Content 2 | Content 4
+```
+Header 1 | Header 2
+--------- | ---------
+Content 1 | Content 3
+Content 2 | Content 4
+
+테이블 정렬
+```
+| Header 1 | Header 2 | Header 3 |
+| :-------- | :--------: | --------: |
+| Left | Center | Right |
+```
+| Header 1 | Header 2 | Header 3 |
+| :-------- | :--------: | --------: |
+| Left | Center | Right |
