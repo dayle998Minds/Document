@@ -1,4 +1,5 @@
 # 데이터베이스 엔진비교
+---
 ## Maria DB의 데이터베이스 엔진(스토리지 엔진)
 MariaDB는 원칙적으로 MySQL과 거의 동일한 데이터베이스 엔진을 제공한다.
 
@@ -29,6 +30,7 @@ Fractal Tree는 "Big I/O"에 촛점을 맞춘 자료 구조로, 잦은 Disk I/O�
 ### Connect 
 ConnectStorage Engine은 XML이나 Excel파일 그리고 Oracle이나 MSSQL과 같은 DBMS들의 테이블을 MariaDB에 직접 쿼리할수 있도록 연결 기능을 제공해주는 스토리지 엔진이다.
 
+---
 ## MySQL의 데이터베이스 엔진
 ### MyISAM
 - 상대적으로 높은 성능
