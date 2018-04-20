@@ -1,4 +1,4 @@
-## 개발 관련 Tools 설치
+# 개발 관련 Tools 설치
 ### ubuntu launcher 
 gsettings set com.canonical.Unity.Launcher launcher-position Bottom
 
@@ -36,7 +36,7 @@ source ~/.bash-git-prompt/gitprompt.sh
 ```
 $ sudo apt-get install terminator
 ```
-## 자주 사용하는 리눅스 명령어
+# 자주 사용하는 리눅스 명령어
 ### 그래픽 카드 확인
 ```
 lshw -C display
@@ -46,6 +46,15 @@ lspci -vnn | grep VGA -A 12
 ### 폴더 용량 확인
 ```
 du -hs *
+```
+### 하위 디렉토리 파일들에서 문자열 검색
+```
+$ grep -rn "찾고자 하는 문자열" *
+```
+- -r 옵션은 하위 디렉토리에 있는 파일까지 검색
+- -n 옵션은 라인 번호를 보여주는 것
+```
+$ find . -name "*" | xargs grep -n "찾고자 하는 문자열"
 ```
 ## RPM 패키지 관리
 설치 / 확인 / 제거 / 업그레이드
@@ -154,7 +163,7 @@ yum deplist 패키지
 ```
 yum update --skip-broken
 ```
-## 서버 장애 파악 방법
+# 서버 장애 파악 방법
 ### CPU 상태 확인
 ```
 top
