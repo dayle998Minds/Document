@@ -38,6 +38,12 @@ CMD ["/bin/bash"]
 ```
 
 ### 3. Image 생성
+Dockerfile 파일을 작성했으면 build 명령으로 이미지를 생성합니다.
+```
+docker build <옵션> <Dockerfile 경로> 
+```
+-  --tag 옵션으로 이미지 이름과 태그 설정
+
 ```
 # docker build -t [이미지명] .
 [user1@ip-10-0-0-151 centos7-base]$ sudo docker build -t centos7-base:7.4 .
