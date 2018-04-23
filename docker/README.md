@@ -259,7 +259,25 @@ ssh -p 10022 root@localhost
 >	> --name=""                     Assign a name to the container\
 >	> -v, --volume=[host-src:]container-dest[:<options>]\
 >	> -p, --publish=[]              Publish a container's port(s) to the host
+### image download 후 바로 실행하기
+local에 16.04가 없는 경우 아래와 같이 다운로드후 컨테이너까지 생성합니다.
+```
+$ docker run ubuntu:16.04
+Unable to find image 'ubuntu:16.04' locally
+16.04: Pulling from library/ubuntu
+..
+Digest: sha256:9ee3b83bcaa383e5e3b657f042f4034c92cdd50c03f73166c145c9ceaea9ba7c
+Status: Downloaded newer image for ubuntu:16.04
 
+# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+41ec7dccdc3e        ubuntu:16.04        "/bin/bash"         40 seconds ago      Exited (0) 39 seconds ago                       nostalgic_colden
+```
+
+```
+docker run -it ubuntu:16.04 /bin/bash
+root@fce967c97188:/#
+```
 ---
 ## 참조 사이트
 <http://pyrasis.com/Docker/Docker-HOWTO#section-5>
