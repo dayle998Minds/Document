@@ -215,7 +215,14 @@ david계정에 sudo 명령 권한 추가
 usermod -G sudo david
 ```
 ###  패키지 다운로드 서버 변경
+```
 cp /etc/apt/sources.list /etc/apt/sources.list.old
 sudo sed -i 's/archive.ubuntu.com/ftp.daum.net/g' /etc/apt/sources.list
+
+sudo apt-get git
+sudo apt-get install git
+sudo apt-get install vim
+
 apt-get update
 apt-get upgrade
+```
