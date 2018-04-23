@@ -189,11 +189,17 @@ lsof -i TCP:80
 ```
 lsof -c httpd
 ```
+## 리눅스 로컬서버 열린 포트 확인
+```
+netstat -tnlp
+```
+
 ### 네트워크 연결 상태 확인
 ```
 netstat -nap | grep ESTABLISHED
 netstat -nap | grep TIME_WAIT
 ```
+
 TIME_WIT 수가 비정상적으로 많이면 들어오는 요청을 서버에서 처리못하고 있는 상태
 ### 디스크 상태
 ```
