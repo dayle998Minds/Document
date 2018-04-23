@@ -199,3 +199,18 @@ lsof -i TCP:80
  ```
  df -uh
  ```
+##  설치후 초기설정
+###암호 변경
+```
+passwd
+passwd <userid>
+ ```
+#계정추가
+```
+adduser newuser
+```
+# sudo 권한 추가
+david계정에 sudo 명령 권한 추가
+```
+usermod -G sudo david
+```
