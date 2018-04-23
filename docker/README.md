@@ -192,14 +192,14 @@ $ docker rmi <이미지 이름>:<태그>
 docker history <이미지 이름>:<태그>
 ```
 ### 컨테이너에서 파일 전송 / cp
-```
-docker cp <컨테이너 이름>:<경로> <호스트 경로>
-```
-예제
-```
-✔ ~/git/document/docker [master {origin/master}|✚ 1…1] 
-10:24 $ docker cp cmdev2:/etc/nginx/nginx.conf ./
-```
+> 호스트 -> 컨테이너
+
+docker cp [host 파일경로] [container name]:[container 내부 경로]
+
+> 컨테이너 -> 호스트
+
+docker cp [container name]:[container 내부 경로] [host 파일경로]
+
 ### 컨테이너의 변경 사항을 이미지 파일로 생성 / commit
 ```
 docker commit <옵션> <컨테이너 이름> <이미지 이름>:<태그>
