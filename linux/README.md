@@ -187,30 +187,35 @@ lsof -i TCP:80
 ```
 ### 특정 프로세스가 어떤 포트를 사용하고 있는지 확인
 ```
- lsof -c httpd
- ```
- ### 네트워크 연결 상태 확인
- ```
- netstat -nap | grep ESTABLISHED
- netstat -nap | grep TIME_WAIT
- ```
- TIME_WIT 수가 비정상적으로 많이면 들어오는 요청을 서버에서 처리못하고 있는 상태
- ### 디스크 상태
- ```
- df -uh
- ```
+lsof -c httpd
+```
+### 네트워크 연결 상태 확인
+```
+netstat -nap | grep ESTABLISHED
+netstat -nap | grep TIME_WAIT
+```
+TIME_WIT 수가 비정상적으로 많이면 들어오는 요청을 서버에서 처리못하고 있는 상태
+### 디스크 상태
+```
+df -uh
+```
 ##  설치후 초기설정
-###암호 변경
+### 암호 변경
 ```
 passwd
 passwd <userid>
  ```
-#계정추가
+> 계정추가
 ```
 adduser newuser
 ```
-# sudo 권한 추가
+> sudo 권한 추가
 david계정에 sudo 명령 권한 추가
 ```
 usermod -G sudo david
 ```
+###  패키지 다운로드 서버 변경
+cp /etc/apt/sources.list /etc/apt/sources.list.old
+sudo sed -i 's/archive.ubuntu.com/ftp.daum.net/g' /etc/apt/sources.list
+apt-get update
+apt-get upgrade
