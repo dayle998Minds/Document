@@ -204,6 +204,11 @@ docker cp [container name]:[container 내부 경로] [host 파일경로]
 ```
 docker commit <옵션> <컨테이너 이름> <이미지 이름>:<태그>
 ```
+> 옵션
+>   -a, --author=""  : 생성자 정보\
+>   -m, --message="" : 이미지 메시지\
+>   -p, --pause=true/false : 이미지를 생성할 때 컨테이너를 중지(stop) 한 뒤 commit 여부
+
 ### 생성된 이미지를 기준으로 컨테이너에 변경된 목록 출력 / diff
 ```
 docker diff <컨테이너 이름>
