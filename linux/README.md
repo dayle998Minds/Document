@@ -213,3 +213,8 @@ sudo apt-get install vim
 apt-get update
 apt-get upgrade
 ```
+## 개발 팁
+### shell script 실행시 debug 출력
+```
+sh -x test.sh
+```
