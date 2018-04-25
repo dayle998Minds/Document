@@ -218,3 +218,16 @@ apt-get upgrade
 ```
 sh -x test.sh
 ```
+## curl
+### GET
+```
+curl http://www.gnu.org/software/bash/manual/html_node/index.html
+```
+### POST
+```
+curl -d "first_name=Bruce&last_name=Wayne&press=%20OK%20" http://posttestserver.com/post.php
+```
+### Content-Type Header 설정
+```
+curl -d @myJson.js -H "Content-Type: application/json" http://localhost:8080/jsonEcho
+```
