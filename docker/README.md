@@ -177,6 +177,11 @@ $ docker attach <컨테이너 이름>
 ```
 $ docker exec <컨테이너 이름> <명령> <매개 변수>
 ```
+> bash로 접속
+```
+$ docker exec -ti container_id /bin/bash
+```
+
 ### 생성된 컨테이너 삭제 / rm
 ```
 $ docker rm <컨테이너 이름>
