@@ -36,6 +36,35 @@ source ~/.bash-git-prompt/gitprompt.sh
 ```
 $ sudo apt-get install terminator
 ```
+
+### ftp 서버 설치
+```
+$ sudo apt-get install vsftpd
+$ sudo vi /etc/vsftpd.conf
+$ sudo /etc/init.d/vsftpd restart 
+또는 
+$ service vsftpd restart 
+```
+주요 vsftpd.conf 내용
+- FTP의 포트 변경
+  `listen=YES` 라고 써 있는 부분 아래에\
+  `listen_port=21022`
+- 비계정(guest)의 접속을 허용
+  `anonymous_enabled=NO` 를 YES로 변경
+- 업로드 가능하도록 변경
+  `write_enable=YES`에 걸려있는 주석을 제거
+- 계정사용자가 상위디렉토리(root 디렉토리)에 접근하는 것을 허용
+  `chroot_local_user=YES`\
+  `chroot_list_enable=YES`\
+  `chroot_list_file=/etc/vsftpd.chroot_list`\
+  주석을 제거하고 난 후에 chroot_list_file 파일에 계정이름추가\
+  `$sudo vi /etc/vsftpd.chroot_list`\
+   `open_user1`\
+   `open_user2`
+- root 계정 접속을 허용
+  $sudo vi /etc/ftpuser\
+  root 계정에 앞에 주석처리 해준다 (또는 삭제)
+
 # 자주 사용하는 리눅스 명령어
 ## 검색
 ### 
