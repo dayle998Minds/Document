@@ -231,3 +231,20 @@ curl -d "first_name=Bruce&last_name=Wayne&press=%20OK%20" http://posttestserver.
 ```
 curl -d @myJson.js -H "Content-Type: application/json" http://localhost:8080/jsonEcho
 ```
+
+### 디렉토리별 tar 파일 생성 스크립트
+
+```
+$ vi tar_dir.sh
+
+#!/bin/sh
+
+DIRS=`ls -l $PWD | egrep '^d' | awk '{print $9}'`
+
+for DIR in $DIRS
+do
+    echo ${DIR}
+    tar czvf ${DIR}.tar.gz ${DIR}
+    #rm -rf ${DIR}
+done
+```
