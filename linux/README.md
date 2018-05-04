@@ -215,6 +215,23 @@ TIME_WIT 수가 비정상적으로 많이면 들어오는 요청을 서버에서
 ```
 df -uh
 ```
+### Netcat을 이용하여 서버&클라이언트 통신 테스트
+> server
+```
+// tcp
+$ nc -l 11010
+// udp
+$ nc -ul 11010
+```
+> client
+```
+// tcp
+$ nc localhost 11010
+// dup
+$ echo -n "hello" | nc -4u -w1  localhost 11010
+```
+udp서버일경우 첫패킷을 받은후 close되므로 패킷수신후 재실행 필요함
+
 ##  설치후 초기설정
 ### 암호 변경
 ```
