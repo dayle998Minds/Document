@@ -1,7 +1,7 @@
 ### node.js + loopback 사용시 로그 확인방법
 > DEBUG 로그 켜기
 ```
-$ DEBUG="GRPC" node server.js
+$ DEBUG="*" node server.js
 ```
 > loopback inspect 사용방법
 ```
