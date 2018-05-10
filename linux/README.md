@@ -259,11 +259,6 @@ sudo apt-get install vim
 apt-get update
 apt-get upgrade
 ```
-## 개발 팁
-### shell script 실행시 debug 출력
-```
-sh -x test.sh
-```
 ## curl
 ### GET
 ```
@@ -276,6 +271,35 @@ curl -d "first_name=Bruce&last_name=Wayne&press=%20OK%20" http://posttestserver.
 ### Content-Type Header 설정
 ```
 curl -d @myJson.js -H "Content-Type: application/json" http://localhost:8080/jsonEcho
+```
+### header 포함 debug출력 (-v)
+```
+$ curl -v -d "asdff" http://127.0.0.1:8000
+* Rebuilt URL to: http://127.0.0.1:8000/
+*   Trying 127.0.0.1...
+* Connected to 127.0.0.1 (127.0.0.1) port 8000 (#0)
+> POST / HTTP/1.1
+> Host: 127.0.0.1:8000
+> User-Agent: curl/7.47.0
+> Accept: */*
+> Content-Length: 5
+> Content-Type: application/x-www-form-urlencoded
+> 
+* upload completely sent off: 5 out of 5 bytes
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Server: BaseHTTP/0.3 Python/2.7.12
+< Date: Thu, 10 May 2018 07:50:20 GMT
+< Content-type: text/html
+< 
+* Closing connection 0
+<html><body><h1>POST!</h1></body></html>
+```
+
+## 개발 팁
+### shell script 실행시 debug 출력
+```
+sh -x test.sh
 ```
 
 ### 디렉토리별 tar 파일 생성 스크립트
