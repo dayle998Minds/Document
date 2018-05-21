@@ -272,6 +272,10 @@ curl -d "first_name=Bruce&last_name=Wayne&press=%20OK%20" http://posttestserver.
 ```
 curl -d @myJson.js -H "Content-Type: application/json" http://localhost:8080/jsonEcho
 ```
+### custom header와 json content type 보내기
+```
+curl -d @send.json http://127.0.0.1:8080/test --header "custom-header: xxx" --header "Content-Type: application/json"
+```
 ### header 포함 debug출력 (-v)
 ```
 $ curl -v -d "asdff" http://127.0.0.1:8000
