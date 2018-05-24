@@ -91,6 +91,11 @@ $ grep -rn "찾고자 하는 문자열" *
 ```
 $ find . -name "*" | xargs grep -n "찾고자 하는 문자열"
 ```
+### 하위 디렉토리 파일에서 소유자 검색
+```
+$ find . -user root -print
+```
+
 ### 파일 문자 치환
 grep -rl "특정문자" * | xargs sed -i 's/특정문자/바꿀문자/g'
 
