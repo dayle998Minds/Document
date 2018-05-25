@@ -184,6 +184,17 @@ yum deplist 패키지
 ```
 yum update --skip-broken
 ```
+### yum으로 파일이 속한 패키지 찾기
+yum provides 파일
+```
+[root@zetawiki ~]# yum provides /bin/mailx
+Loaded plugins: fastestmirror, priorities
+Loading mirror speeds from cached hostfile
+redhat-lsb-4.0-2.1.4.el5.x86_64 : LSB base libraries support for CentOS Enterprise Linux
+Repo        : base
+Matched from:
+Filename    : /bin/mailx
+```
 # 서버 장애 파악 방법
 ### CPU 상태 확인
 ```
