@@ -344,3 +344,26 @@ do
     #rm -rf ${DIR}
 done
 ```
+## 자동 실행 추가방법
+### crontab를 이용한 시작 프로그램 등록
+```
+crontab -e 
+
+아래 추가
+@reboot /home/test/test/programstart.sh 
+```
+추가 옵션들
+> > @reboot = run at boot and reboot only\
+> >  @yearly  = run at midnight Jan 1 each year (equiv to 0 0 1 1 *) \
+> > @annually  = run at midnight Jan 1 each year (equiv to 0 0 1 1 *) \
+> > @monthly  = run at midnight on the first day of each month (equiv to 0 0 1 * *) \
+> > @weekly  = run at midnight each Sunday (equiv to 0 0 * * 0) \
+> > @daily  = run at midnight each day (equiv to 0 0 * * *) \
+> > @ midnight  = run at midnight each day (equiv to 0 0 * * *) \
+> > @ hourly = run on the first second of every hour (equiv to 0 * * * *) 
+
+### /etc/rc.local에서 바로 실행
+ 
+### /etc/rc.local 에 스크립트 파일을 등록하고, /etc/rc.d/ 경로에 해당 스크립트 파일 넣고 실행하기
+ 
+### /etc/profile.d/ 경로에 자동실행할 스크립트 파일추가
