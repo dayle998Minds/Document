@@ -1,3 +1,12 @@
+# centos 설치후 기본 세팅
+### yum epel 저장소 추가
+Extra Packages for Enterprise Linux yum 저장소 추가\
+epel-release 설치\
+epel = Extra Packages for Enterprise Linux→ 엔터프라이즈 리눅스를 위한 추가 패키지
+
+```
+# yum install epel-release
+```
 # 개발 관련 Tools 설치
 ### ubuntu launcher 
 gsettings set com.canonical.Unity.Launcher launcher-position Bottom
