@@ -428,3 +428,27 @@ Dynamic section at offset 0xf6960 contains 27 entries:
  0x000000000000000d (FINI)               0xc9524
  0x0000000000000019 (INIT_ARRAY)         0x2ef7e8
 ```
+## patch 파일 생성 및 적용
+### 패치 생성
+ diff [options] from-file to-file
+```
+$ diff -uNr hello.c.orig hello.c > hello-hangul.patch
+
+% cat hello-hangul.patch
+--- hello.c.orig	Sun Jan 16 16:54:32 2000
++++ hello.c	Sun Jan 16 16:53:04 2000
+@@ -2,6 +2,6 @@
+ 
+ int main(void)
+ {
+-	printf("hello\n");
++	printf("안녕하세요\n");
+	return 0;
+ }
+```
+### 패치 적용법
+ patch [options] [originalfile [patchfile]]
+```
+$ cd xchat-1.2.0/
+$ patch -p0 < hello-hangul.patch
+```
