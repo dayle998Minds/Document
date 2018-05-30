@@ -265,6 +265,12 @@ passwd <userid>
 adduser newuser
 ```
 > sudo 권한 추가
+- centos
+CentOS에서는 wheel group의 멤버가 sudo 권한을 가진다.
+```
+usermod -aG wheel david
+```
+- ubuntu
 david계정에 sudo 명령 권한 추가
 ```
 usermod -G sudo david
