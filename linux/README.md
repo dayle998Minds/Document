@@ -345,7 +345,7 @@ do
 done
 ```
 ## 자동 실행 추가방법
-### crontab를 이용한 시작 프로그램 등록
+- crontab를 이용한 시작 프로그램 등록
 ```
 crontab -e 
 
@@ -362,8 +362,69 @@ crontab -e
 > > @ midnight  = run at midnight each day (equiv to 0 0 * * *) \
 > > @ hourly = run on the first second of every hour (equiv to 0 * * * *) 
 
-### /etc/rc.local에서 바로 실행
+- /etc/rc.local에서 바로 실행
+
+- /etc/rc.local 에 스크립트 파일을 등록하고, /etc/rc.d/ 경로에 해당 스크립트 파일 넣고 실행하기
  
-### /etc/rc.local 에 스크립트 파일을 등록하고, /etc/rc.d/ 경로에 해당 스크립트 파일 넣고 실행하기
- 
-### /etc/profile.d/ 경로에 자동실행할 스크립트 파일추가
+- /etc/profile.d/ 경로에 자동실행할 스크립트 파일추가
+
+## 동적 라이브러리(shared library)
+### so 파일을 찾는 경로 설정
+- system default 경로
+/etc/ld.so.conf 파일에 설정된 값이 있다. 아래와 같이 /etc/ld.so.conf.d/ 에 있는 conf를 모두 include하고 있다. \
+추가를 원하는 /etc/ld.so.conf.d에 conf파일을 만든후 추가할 path를 추가한후 `ldconfig -v`를 실행한다.
+추가할경우 conf파일을 만든
+```
+david@david-ubuntu:~$ cat /etc/ld.so.conf
+include /etc/ld.so.conf.d/*.conf
+
+david@david-ubuntu:~$ ll /etc/ld.so.conf.d/*.conf
+-rw-r--r-- 1 root root  45  1월 27  2017 /etc/ld.so.conf.d/cuda-8-0.conf
+-rw-rw-r-- 1 root root  38 11월 24  2014 /etc/ld.so.conf.d/fakeroot-x86_64-linux-gnu.conf
+-rw-r--r-- 1 root root 108  6월 17  2017 /etc/ld.so.conf.d/i386-linux-gnu.conf
+
+david@david-ubuntu:~$ cat /etc/ld.so.conf.d/cuda-8-0.conf
+/usr/local/cuda-8.0/targets/x86_64-linux/lib
+david@david-ubuntu:~$ sudo ldconfig -v
+
+```
+- LD_LIBRARY_PATH 추가
+bashrc 파일에 아래와 같이 LD_LIBRARY_PATH에 path를 추가한다.
+```
+david@david-ubuntu:~$ echo $LD_LIBRARY_PATH
+/usr/local/cuda-8.0/lib64:/home/david/maum/lib
+david@david-ubuntu:~$ vi ~/.bashrc 
+
+vi 편집
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
+### 라이브러리 의존성 확인
+ldd 명령어로 확인이 가능하다
+```
+david@david-ubuntu:~$ ldd /usr/bin/vi
+	linux-vdso.so.1 =>  (0x00007fffbc0eb000)
+	libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007fc83eb7b000)
+	libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007fc83e959000)
+	libacl.so.1 => /lib/x86_64-linux-gnu/libacl.so.1 (0x00007fc83e751000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fc83e387000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007fc83e117000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fc83df13000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fc83f0ac000)
+	libattr.so.1 => /lib/x86_64-linux-gnu/libattr.so.1 (0x00007fc83dd0e000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fc83daf1000)
+```
+`readelf -d `명령어로 확인 하는 방법은 아래와 같다
+```
+david@david-ubuntu:~$ readelf -d /usr/bin/vi
+
+Dynamic section at offset 0xf6960 contains 27 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libtinfo.so.5]
+ 0x0000000000000001 (NEEDED)             Shared library: [libselinux.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libacl.so.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000000c (INIT)               0x1b3f8
+ 0x000000000000000d (FINI)               0xc9524
+ 0x0000000000000019 (INIT_ARRAY)         0x2ef7e8
+```
