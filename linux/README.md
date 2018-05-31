@@ -482,3 +482,14 @@ $ patch -p0 < hello-hangul.patch
  # /usr/lib/vino/vino-server 
 
 ```
+## scp 사용법
+- 원격 서버 -> 로컬 서버로 파일 전송
+```
+# scp [옵션] [계정명]@[원격지IP주소]:[원본 경로 및 파일] [전송받을 위치]
+# scp my@111.222.333.444:/home/david/index.html /home/david/
+```
+- 로컬 서버 -> 원격 서버로 파일 전송
+```
+# scp [옵션] [원본 경로 및 파일] [계정명]@[원격지IP주소]:[전송할 경로]
+# scp /home/david/test.txt remote@111.222.333.444:/home/remote/
+```
