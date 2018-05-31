@@ -4,6 +4,11 @@ Extra Packages for Enterprise Linux yum 저장소 추가\
 epel-release 설치\
 epel = Extra Packages for Enterprise Linux→ 엔터프라이즈 리눅스를 위한 추가 패키지
 
+### hot corner 없애기
+왼쪽상단에 마우스를 가져다 놓으면 Activities Overview 가 나와서 많이 불편하다.\
+없애기 위해서는 extension app을 받아서 실행을 시켜주면 된다.\
+https://extensions.gnome.org/extension/118/no-topleft-hot-corner/
+
 ```
 # yum install epel-release
 ```
