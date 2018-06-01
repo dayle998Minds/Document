@@ -12,6 +12,9 @@ epel = Extra Packages for Enterprise Linux→ 엔터프라이즈 리눅스를 �
 없애기 위해서는 extension app을 받아서 실행을 시켜주면 된다.\
 https://extensions.gnome.org/extension/118/no-topleft-hot-corner/
 
+### windows 공유 
+WinSCP를 이용하여 scp로 접속
+https://winscp.net/eng/docs/lang:ko
 
 # 개발 관련 Tools 설치
 ### ubuntu launcher 
