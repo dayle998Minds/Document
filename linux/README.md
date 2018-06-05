@@ -369,7 +369,7 @@ do
 done
 ```
 ## 자동 실행 추가방법
-- crontab를 이용한 시작 프로그램 등록
+### crontab를 이용한 시작 프로그램 등록
 ```
 crontab -e 
 
@@ -386,12 +386,50 @@ crontab -e
 > > @ midnight  = run at midnight each day (equiv to 0 0 * * *) \
 > > @ hourly = run on the first second of every hour (equiv to 0 * * * *) 
 
-- /etc/rc.local에서 바로 실행
+### /etc/rc.local에서 바로 실행
 
-- /etc/rc.local 에 스크립트 파일을 등록하고, /etc/rc.d/ 경로에 해당 스크립트 파일 넣고 실행하기
+### /etc/rc.local 에 스크립트 파일을 등록하고, /etc/rc.d/ 경로에 해당 스크립트 파일 넣고 실행하기
  
-- /etc/profile.d/ 경로에 자동실행할 스크립트 파일추가
+### /etc/profile.d/ 경로에 자동실행할 스크립트 파일추가
 
+### upstart를 이용하는 방법
+/etc/init에 추가할 서비스에 대한 conf파일을 만든후 서비스를 실행
+```
+$ sudo vi /etc/init/upstart_example.conf
+$ sudo upstart upstart_example.conf
+```
+conf파일 참조
+```
+#author 설정
+description     "upstart-Worker"
+author          "david"
+#자동 시작/ 중단 조건
+start on runlevel [2345]
+stop on runlevel [016]
+
+#자동 재시작
+respawn
+
+#실행권한
+setuid www-data
+setgid www-data
+
+#실행 환경 설정
+env PORT=11000
+#실행 디렉토리 변경
+chdir /home/david/upstart_work
+
+# pre-script실행
+pre-start script
+    mkdir -p /var/log/yourcompany/
+end script
+
+exec echo "hello world"
+
+console output
+```
+
+-
 ## 동적 라이브러리(shared library)
 ### so 파일을 찾는 경로 설정
 - system default 경로
