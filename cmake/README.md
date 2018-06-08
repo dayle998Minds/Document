@@ -298,3 +298,7 @@ ADD_CUSTOM_COMMAND (
 ```
 다음은 app.out을 빌드 완료한 뒤, 이로부터 임베디드 프로세서에 Flashing하기 위한 app.bin을 생성하는 명령입니다.\
 * ADD_CUSTOM_COMMAND(OUTPUT)에서 제시한 예시에서는 OUTPUT에 지정한 파일들이 Outdated인 경우에만 실행되지만, 여기에서는 출력물의 최신 여부에 관계 없이 TARGET에 지정한 대상 Target이 빌드되는 경우에만 실행됩니다.
+
+
+# Refs
+https://tuwlab.com/ece/27260
