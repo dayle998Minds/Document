@@ -346,7 +346,7 @@ $ curl -v -d "asdff" http://127.0.0.1:8000
 <html><body><h1>POST!</h1></body></html>
 ```
 
-## 개발 팁
+# 개발 팁
 ### shell script 실행시 debug 출력
 ```
 sh -x test.sh
@@ -533,4 +533,93 @@ $ patch -p0 < hello-hangul.patch
 ```
 # scp [옵션] [원본 경로 및 파일] [계정명]@[원격지IP주소]:[전송할 경로]
 # scp /home/david/test.txt remote@111.222.333.444:/home/remote/
+```
+## strace
+### 인자로 trace방법
+strace -t -f ls
+- -t 시간표시
+- -f pid 표시
+
+### 실행중인 pid로 trace 방법
+strace -t -t -p pid -o log-file.log
+
+### 정규 표현식으로 필터 걸기
+```
+strace -t -f -e open ls
+```
+```
+$ strace -t -f -e open ls
+12:13:55 open("/usr/local/cuda-8.0/lib64/tls/x86_64/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/usr/local/cuda-8.0/lib64/tls/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/usr/local/cuda-8.0/lib64/x86_64/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/usr/local/cuda-8.0/lib64/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/home/david/maum/lib/tls/x86_64/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/home/david/maum/lib/tls/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/home/david/maum/lib/x86_64/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/home/david/maum/lib/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+12:13:55 open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+```
+### -e trace=" 옵션을 사용하면 여려 개의 시스템 콜을 출력
+```
+$ strace -e trace=open,read ls /home
+open("/etc/ld.so.cache", O_RDONLY)      = 3
+open("/lib/libselinux.so.1", O_RDONLY)  = 3
+read(3, "\177ELF\1\1\1\3\3\1\260G004"..., 512) = 512
+open("/lib/librt.so.1", O_RDONLY)       = 3
+read(3, "\177ELF\1\1\1\3\3\1\300\30004"..., 512) = 512
+..
+open("/lib/libattr.so.1", O_RDONLY)     = 3
+read(3, "\177ELF\1\1\1\3\3\1\360\r004"..., 512) = 512
+open("/proc/filesystems", O_RDONLY|O_LARGEFILE) = 3
+read(3, "nodev\tsysfs\nnodev\trootfs\nnodev\tb"..., 1024) = 315
+read(3, "", 1024)                       = 0
+open("/usr/lib/locale/locale-archive", O_RDONLY|O_LARGEFILE) = 3
+open("/home", O_RDONLY|O_NONBLOCK|O_LARGEFILE|O_DIRECTORY|O_CLOEXEC) = 3
+```
+### -r 옵션을 사용해 시스템 콜의 상대 시간 정보 출력하기
+```
+$ strace -r ls
+     0.000000 execve("/bin/ls", ["ls"], [/* 37 vars */]) = 0
+     0.000846 brk(0)                    = 0x8418000
+     0.000143 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+     0.000163 mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb787b000
+     0.000119 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+     0.000123 open("/etc/ld.so.cache", O_RDONLY) = 3
+     0.000099 fstat64(3, {st_mode=S_IFREG|0644, st_size=67188, ...}) = 0
+     0.000155 mmap2(NULL, 67188, PROT_READ, MAP_PRIVATE, 3, 0) = 0xb786a000
+     ...
+     ...
+```
+### -c 옵션을 사용해 시스템 콜 통계 정보 생성하기 
+```
+$ strace -c ls /home
+bala
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  -nan    0.000000           0         9           read
+  -nan    0.000000           0         1           write
+  -nan    0.000000           0        11           open
+  -nan    0.000000           0        13           close
+  -nan    0.000000           0         1           execve
+  -nan    0.000000           0         9         9 access
+  -nan    0.000000           0         3           brk
+  -nan    0.000000           0         2           ioctl
+  -nan    0.000000           0         3           munmap
+  -nan    0.000000           0         1           uname
+  -nan    0.000000           0        11           mprotect
+  -nan    0.000000           0         2           rt_sigaction
+  -nan    0.000000           0         1           rt_sigprocmask
+  -nan    0.000000           0         1           getrlimit
+  -nan    0.000000           0        25           mmap2
+  -nan    0.000000           0         1           stat64
+  -nan    0.000000           0        11           fstat64
+  -nan    0.000000           0         2           getdents64
+  -nan    0.000000           0         1           fcntl64
+  -nan    0.000000           0         2         1 futex
+  -nan    0.000000           0         1           set_thread_area
+  -nan    0.000000           0         1           set_tid_address
+  -nan    0.000000           0         1           statfs64
+  -nan    0.000000           0         1           set_robust_list
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000000                   114        10 total
 ```
