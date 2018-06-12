@@ -2,8 +2,8 @@
 CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
 
 # 프로젝트 이름 및 버전
-PROJECT ( "c-example" )
-SET ( OUTPUT_BIN "c-example")
+PROJECT ( "boost-hello-example" )
+set(OUTBIN hello-example)
 
 SET ( PROJECT_VERSION_MAJOR 0 )
 SET ( PROJECT_VERSION_MINOR 1 )
@@ -14,7 +14,7 @@ SET ( CMAKE_VERBOSE_MAKEFILE true )
 
 # 빌드 대상 바이너리 파일명 및 소스 파일 목록
 SET ( SRC_FILES
-        main.c
+        main.cpp
         )
 
 # 공통 컴파일러
@@ -47,4 +47,4 @@ SET ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BUILD_TYPE}/lib )
 SET ( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BUILD_TYPE}/lib )
 
 # 빌드 대상 바이너리 추가
-ADD_EXECUTABLE( ${OUTPUT_BIN} ${SRC_FILES} )
+ADD_EXECUTABLE( ${OUTBIN} ${SRC_FILES} )

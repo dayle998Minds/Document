@@ -302,3 +302,10 @@ ADD_CUSTOM_COMMAND (
 
 # Refs
 https://tuwlab.com/ece/27260
+
+# cmake tips
+## cmake에 있는 변수들 모두 출력 방법 (콘솔)
+CMakeLists.txt가 있는 폴더로 이동한다음 아래와 같이 *cmake-LAH* 를 실행
+$ cmake -LAH
+
+
