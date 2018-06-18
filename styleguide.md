@@ -91,3 +91,37 @@ enum AlternateUrlTableErrors {
   MALFORMED_INPUT = 2,
 };
 ```
+
+# 구글 java 스타일
+```
+package com.example.slackbot;
+
+import org.springframework.boot.SpringApplication;
+
+class ClsExample SuperClass implements Interface {
+
+  static final String FIELDS = "id,summary";
+  static final String FEED_FIELDS = "items(" + FIELDS + ")";
+
+  String id;
+  String summary;
+
+  ClsExample(String id, String summary) {
+    this.id = id;
+    this.summary = summary;
+  }
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(ClsExample.class).add("id", id).add("summary", summary)
+        .toString();
+  }
+
+  public int compareTo(ClsExample other) {
+    return summary.compareTo(other.summary);
+  }
+    public static Object classMethod() throws SomeException
+  {
+    return new Object();
+  }
+}
+```
