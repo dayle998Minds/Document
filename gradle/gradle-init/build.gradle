@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'hello.HelloWorld'
+
+// tag::repositories[]
+// 서드파티 라이브러리의 소스 출처를 추가한다
+repositories {
+    mavenCentral()
+}
+// end::repositories[]
+
+// tag::jar[]
+// 빌드에서 jar를 생성할 때 메타를 추가한다
+jar {
+    baseName = 'gs-gradle'
+    version =  '0.1.0'
+}
+// end::jar[]
+
+// tag::dependencies[]
+// 버전 의존성을 추가한다
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// 의존 라이브러리를 추가한다
+dependencies {
+    compile "joda-time:joda-time:2.2"
+}
+// end::dependencies[]
+
+// tag::wrapper[]
+// wrapper로 설치할 gradle version을 정한다
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+// end::wrapper[]

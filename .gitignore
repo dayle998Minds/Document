@@ -7,3 +7,138 @@ CMakeFiles
 Makefile
 .idea
 cmake-build-debug
+
+# Gradle
+# ------
+.gradle
+build
+buildSrc/build
+buildSrc/subprojects/*/build
+subprojects/*/build
+subprojects/docs/src/samples/*/*/build
+subprojects/internal-android-performance-testing/build-android-libs
+gradle-wrapper.jar
+gradle-wrapper.properties
+gradlew
+gradlew.bat
+settings.gradle
+
+# IDEA
+# ----
+.idea
+.shelf
+/*.iml
+/*.ipr
+/*.iws
+/buildSrc/.idea
+/buildSrc/.shelf
+/buildSrc/*.iml
+/buildSrc/*.ipr
+/buildSrc/*.iws
+/buildSrc/out
+/buildSrc/subprojects/*/*.iml
+/buildSrc/subprojects/*/out
+/out
+/subprojects/*/*.iml
+/subprojects/*/out
+/.teamcity/*.iml
+/.teamcity/target
+
+# Eclipse
+# -------
+*.classpath
+*.project
+*.settings
+/bin
+/subprojects/*/bin
+atlassian-ide-plugin.xml
+.metadata/
+
+# NetBeans
+# --------
+.nb-gradle
+.nb-gradle-properties
+
+# Vim
+# ---
+*.sw[op]
+
+# Emacs
+# -----
+*~
+\#*\#
+.\#*
+
+# Textmate
+# --------
+.textmate
+
+# Sublime Text
+# ------------
+*.sublime-*
+
+# jEnv
+# ----
+.java-version
+
+# macOS
+# ----
+.DS_Store
+
+# HPROF
+# -----
+*.hprof
+
+# Work dirs
+# ---------
+/incoming-distributions
+/intTestHomeDir
+
+# Logs
+# ----
+/*.log
+
+# oh-my-zsh gradle plugin
+.gradletasknamecache
+
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/libraries
+.idea/deployment.xml
+.idea/webServers.xml
+.idea/compiler.xml
+.idea/copyright/
+.idea/misc.xml
+.idea/tools.protobuf.xml
+.idea/typescript-compiler.xml
+.idea/watcherTasks.xml
+.idea/uiDesigner.xml
+.vscode
+
+javasrc/.idea/libraries
+
+**/CMakeCache.txt
+**/CMakeFiles
+**/Makefile
+**/cmake_install.cmake
+CMakeCache.txt
+CMakeFiles
+Makefile
+# binaries build
+build-debug*
+build-release*
+build-deploy-debug*
+build-deploy-release*
+import_modules
+cmake-build-debug*
+cmake-build-release*
+
+# javasrc
+javasrc/**/build
+javasrc/**/.gradle
+javasrc/**/.idea/workspace.xml
+javasrc/**/src/main/proto
+proto/.idea
