@@ -22,11 +22,9 @@
 
 int main(int argc, char **argv) {
   struct sockaddr_in addr, clientaddr;
-  struct eph_comm *conn;
   int sfd;
   int cfd;
   socklen_t clilen;
-  int flags = 1;
   int n, i;
   int readn;
   struct epoll_event ev, *events;
