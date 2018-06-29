@@ -1,0 +1,8 @@
+Jun 28, 2018 6:32:58 PM hello.LogFile simpleFormat
+INFO: My first log
+Jun 28, 2018 6:32:58 PM hello.LogFile simpleFormat
+INFO: Hi How r u?
+Jun 28, 2018 6:32:58 PM hello.SimpleCustomFile test
+INFO: My first log
+Jun 28, 2018 6:33:17 PM hello.SimpleCustomFile test
+INFO: aaa bbb ccc ddd eee fff heloasfd
