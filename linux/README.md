@@ -623,3 +623,50 @@ bala
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.000000                   114        10 total
 ```
+## git
+### git checkout error 
+아래와 같이 local file이 변경되어서 error 발생하는 경우 대처 방안
+```
+error: Your local changes to the following files would be overwritten by checkout:
+```
+- git stash
+- git checkout -f origin/feat/test
+
+### github ssh 추가
+아래와 같이 id_rsa.pub 생성후 github에 등록
+```
+$ ssh-keygen -t rsa -C "david205@gmail.com"
+    Enter file in which to save the key (/home/david/.ssh/id_rsa): 
+    Enter passphrase (empty for no passphrase): 
+$ eval "$(ssh-agent -s)"
+    Agent pid 16845
+$ cat ~/.ssh/id_rsa.pub 
+```
+### git branch 생성후 commit 방법
+```git checkout -b feat/example
+git status
+git add src/main.cc 
+git status
+git commit
+git push --set-upstream origin feat/example
+```
+### git release 방법
+아래예 는 release branch에 tag를 추가한후 해당 tag를 current branch와 master에 추가하는 방법입니다.
+```
+git checkout release
+## tag 추가
+git tag -a "v1.0" -m "release v1.0"
+git push origin v1.0
+
+## current로 변경한후 release branch를 current 로 합치기 
+git checkout current 
+git status
+git merge release 
+git push origin current
+
+## master로 변경한후 release branch를 master로 함치기 
+git checkout master 
+git merge release 
+git push origin master 
+gitk
+```
