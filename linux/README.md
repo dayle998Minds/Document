@@ -120,6 +120,15 @@ grep -rl "특정문자" * | xargs sed -i 's/특정문자/바꿀문자/g'
 ```
 grep -rl "192.168.1.15" | xargs sed -i 's/192.168.1.15/10.122.66.35/g'
 ```
+### sudo 권한 추가
+root로 이동한다음 `visudo` 나 `vi /etc/sudoers` 입력후 아래와 같이 user(david)를 추가하면 됩니다.
+```
+# User privilege specification
+
+root ALL=(ALL:ALL) ALL
+david ALL=(ALL:ALL) ALL
+```     
+
 ## RPM 패키지 관리
 설치 / 확인 / 제거 / 업그레이드
 ```
@@ -369,36 +378,44 @@ do
 done
 ```
 ## 자동 실행 추가방법
-### crontab를 이용한 시작 프로그램 등록
+### centos
+conf파일을 /etc/init에 추가한다음 initctl를  start해서 자동 실행을 하면 됩니다.
+1. conf을 아래와 같이 만듭니다.
 ```
-crontab -e 
-
-아래 추가
-@reboot /home/test/test/programstart.sh 
+$ sudo vi /etc/init/example-svc.conf
 ```
-추가 옵션들
-> > @reboot = run at boot and reboot only\
-> >  @yearly  = run at midnight Jan 1 each year (equiv to 0 0 1 1 *) \
-> > @annually  = run at midnight Jan 1 each year (equiv to 0 0 1 1 *) \
-> > @monthly  = run at midnight on the first day of each month (equiv to 0 0 1 * *) \
-> > @weekly  = run at midnight each Sunday (equiv to 0 0 * * 0) \
-> > @daily  = run at midnight each day (equiv to 0 0 * * *) \
-> > @ midnight  = run at midnight each day (equiv to 0 0 * * *) \
-> > @ hourly = run on the first second of every hour (equiv to 0 * * * *) 
-
-### /etc/rc.local에서 바로 실행
-
-### /etc/rc.local 에 스크립트 파일을 등록하고, /etc/rc.d/ 경로에 해당 스크립트 파일 넣고 실행하기
- 
-### /etc/profile.d/ 경로에 자동실행할 스크립트 파일추가
-
-### upstart를 이용하는 방법
-/etc/init에 추가할 서비스에 대한 conf파일을 만든후 서비스를 실행
 ```
-$ sudo vi /etc/init/upstart_example.conf
-$ sudo upstart upstart_example.conf
+description "init example"
+author      "david"
+
+#환경변수 추가
+env LD_LIBRARY_PATH=/usr/lib
+
+#자동 재시작
+respawn
+
+script
+  exec sudo -E -u david /svc/bin/process
+end script
+
+#자동 시작/ 중단 조건
+start on runlevel [2345]
+stop on runlevel [06]
+
+console output
+
 ```
-conf파일 참조
+2. initctl list에 해당 서비스가 제대로 올라 갔는지 확인합니다.
+```
+$ sudo initctl list
+example-svc stop/waiting
+```
+3. 해당 서비스를 실행시켜 줍니다.
+```
+$ sudo initctl start example-svc
+```
+추가적으로 설정할수 있는 conf파일 예제입니다.
+
 ```
 #author 설정
 description     "upstart-Worker"
@@ -429,7 +446,7 @@ exec echo "hello world"
 console output
 ```
 
--
+
 ## 동적 라이브러리(shared library)
 ### so 파일을 찾는 경로 설정
 - system default 경로
