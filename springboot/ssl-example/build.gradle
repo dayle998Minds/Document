@@ -1,0 +1,19 @@
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'com.example.sslserver.SslServerApplication'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version:'1.5.7.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.7.RELEASE'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

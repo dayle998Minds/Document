@@ -284,3 +284,9 @@ Content 2 | Content 4
 | Header 1 | Header 2 | Header 3 |
 | :-------- | :--------: | --------: |
 | Left | Center | Right |
+
+## 이미지 추가
+```
+![이미지 이름](이미지 URL)
+```
+![자바가 사용하는 메모리구조](./test-image.png)

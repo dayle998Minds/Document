@@ -1,4 +1,87 @@
-# Python
+# Python 설치
+### python3 설치
+```
+$ sudo apt-get update
+$ sudo apt install python3.6
+$ sudo apt-get -y install python3-pip
+
+```
+위와 같이 해도 안될경우 강제로 설정방법
+```
+$ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+$ python3 get-pip.py
+$ pip3 --version
+pip 10.0.1 from /usr/local/lib/python3.5/dist-packages/pip (python 3.5)
+
+```
+### 모듈 설치 방법
+```
+$ sudo pip install django
+$ sudo pip uninstall django 
+```
+
+# 파이썬 가상환경
+- venv : Python 3.3 버전 이후 부터 기본모듈에 포함됨
+- virtualenv : Python 2 버전부터 사용해오던 가상환경 라이브러리, Python 3에서도 사용가능
+- conda : Anaconda Python을 설치했을 시 사용할 수있는 모듈
+- pyenv : pyenv의 경우 Python Version Manger임과 동시에 가상환경 기능을 플러그인 형태로 제공
+
+## virtualenv
+### virtualenv 설치
+$ sudo pip install virtualenv
+...
+Installing collected packages: virtualenv
+Successfully installed virtualenv-16.0.0
+
+### 가상 환경 생성
+virtualenv 가상환경이름
+```
+$ virtualenv ENV
+Using base prefix '/usr'
+New python executable in /home/david/python3_pip/ENV/bin/python3
+Also creating executable in /home/david/python3_pip/ENV/bin/python
+Installing setuptools, pip, wheel...done.
+david@david-ubuntu:~/python3_pip$ ll
+total 23672
+drwxrwxr-x  4 david david     4096  7월 17 15:57 ./
+drwxr-xr-x 74 david david     4096  7월 17 15:22 ../
+drwxrwxr-x  5 david david     4096  7월 17 15:57 ENV/
+david@david-ubuntu:~/python3_pip$ cd ENV/
+david@david-ubuntu:~/python3_pip/ENV$ ll
+total 24
+drwxrwxr-x 5 david david 4096  7월 17 15:57 ./
+drwxrwxr-x 4 david david 4096  7월 17 15:57 ../
+drwxrwxr-x 2 david david 4096  7월 17 15:57 bin/
+drwxrwxr-x 2 david david 4096  7월 17 15:57 include/
+drwxrwxr-x 3 david david 4096  7월 17 15:57 lib/
+-rw-rw-r-- 1 david david   61  7월 17 15:57 pip-selfcheck.json
+```
+ENV 하위에 bin, include, lib 디렉토리가 각각 생성된 것을 확인 할 수 있음
+
+### 가상 환경 활성화
+source 가상환경디렉토리/bin/activate
+```
+david@david-ubuntu:~/python3_pip$ source ENV/bin/activate
+(ENV) david@david-ubuntu:~/python3_pip$ pip list
+Package    Version
+---------- -------
+pip        10.0.1 
+setuptools 40.0.0 
+wheel      0.31.1 
+```
+활성화를 하게 되면 쉘 명령창의 앞 부분에 (ENV)가 생성되며, 이는 ENV 가상환경에서 실행되고 있다는 의미
+
+### 가상 환경 비활성화
+deactivate
+```
+(ENV) david@david-ubuntu:~/python3_pip$ deactivate
+david@david-ubuntu:~/python3_pip$ 
+```
+### 가상 환경 삭제
+deactivate
+rm -rf PATH/ENV
+
+# Python 문법
 
 ### boolean 자료형 비교 if greeting: 
 

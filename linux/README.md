@@ -222,6 +222,60 @@ Repo        : base
 Matched from:
 Filename    : /bin/mailx
 ```
+## yum repository 생성하기
+
+### 임시 디렉토리 구성
+```
+$ mkdir ~/repo-test
+```
+### 추가할 rpm 복사
+```
+$ cp -rf ~/rpm/* ~/repo-test 
+
+```
+### rpm 정보 생성
+createrepo 라는 프로그램을 이용하여 xml 형태로 rpm 정보를 만들어냅니다.
+createrepo 프로그램을 이용하여 원하는 디렉토리에서 실행을 하면 repodata 란 디렉토리가 생기면서 정보가 생깁니다.
+```
+$ yum -y install createrepo
+
+$ createrepo ~/repo/
+Spawning worker 0 with 1 pkgs
+Workers Finished
+Saving Primary metadata
+Saving file lists metadata
+Saving other metadata
+Generating sqlite DBs
+Sqlite DBs complete
+$ ll
+total 492
+drwxrwxr-x  3 david david   4096  7월 11 15:04 ./
+drwxr-xr-x 72 david david   4096  7월 11 15:02 ../
+-rw-r--r--  1 david david 490792  7월 11 15:03 pcre-devel-8.32-15.el7_2.1.x86_64.rpm
+drwxrwxr-x  2 david david   4096  7월 11 15:04 repodata/
+```
+### 리포지토리 설정파일 추가
+
+```
+$ vi ~/repo/repo-test.repo
+[repo-test.repo]
+name=repo-test
+baseurl=file:///home/david/repo-test/
+enabled=1
+gpgcheck=0
+```
+### repo 복사
+
+```
+sudo cp test-repo.repo /etc/yum.repos.d/
+sudo yum clean all
+sudo yum update
+
+```
+### 테스트
+```
+$ yum install -y nginx
+```
 # 서버 장애 파악 방법
 ### CPU 상태 확인
 ```
@@ -302,6 +356,41 @@ david계정에 sudo 명령 권한 추가
 ```
 usermod -G sudo david
 ```
+### 리눅스 계정 그룹 변경하기
+usermod -G 그룹명 사용자명
+
+```
+$ usermod -g 510 testuser
+vi /etc/group
+weblogic:x:510:weblogicuser,testuser
+```
+### user 조회
+사용자를 조회하는 방법은 `/etc/passwd` 와 `id 사용자`를 이용하는 방법이 있습니다.
+```
+$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+```
+사용자명:암호:uid:gid:계정이름(정보):홈디렉토리:로그인쉘
+
+``` 
+$ id david 
+uid=1000(david) gid=1000(david) groups=1000(david),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),113(lpadmin),128(sambashare),130(docker)
+
+$ cat /etc/group | grep david
+adm:x:4:syslog,david
+cdrom:x:24:david
+sudo:x:27:david
+dip:x:30:david
+plugdev:x:46:david
+lpadmin:x:113:david
+david:x:1000:
+sambashare:x:128:david
+docker:x:130:david
+
+```
+
 ###  패키지 다운로드 서버 변경
 ```
 cp /etc/apt/sources.list /etc/apt/sources.list.old
@@ -354,7 +443,51 @@ $ curl -v -d "asdff" http://127.0.0.1:8000
 * Closing connection 0
 <html><body><h1>POST!</h1></body></html>
 ```
+## 리눅스 크론탭
+특정 시간에 특정 작업을 해야한다.
+### 생성, 리스트, 삭제
+편집후 명령어를 입력후 콜론(:) 입력 후에 wq 를 입력해 크론탭을 저장합니다.
+```
+$ crontab -e
+```
+cat 명령어로 파일을 읽어들인 것처럼 표준 출력으로 크론탭 내용이 나오게 됩니다
 
+```
+$ crontab -l
+```
+아래와 같이 입력하면 기존에 저장된 내용이 지워집니다. 다른 메시지는 나오지 않고요..
+```
+$ crontab -r
+```
+### 주기별 예제
+주기 결정
+```
+*　　　　　　*　　　　　　*　　　　　　*　　　　　　*
+분(0-59)　　시간(0-23)　　일(1-31)　　월(1-12)　　　요일(0-7)
+```
+```
+# 매분 실행
+# 매분 ls -la실행 로그
+* * * * * ls -la > /home/david/result-ls.log 2>&1
+
+# 특정 시간 실행
+# 매주 금요일 오전 5시 45분에 ls -la 를 실행
+45 5 * * 5 ls -la > /home/david/result-ls.log 2>&1
+
+# 반복 실행
+# 매일 매시간 0분, 20분, 40분에 ls -la 를 실행
+0,20,40 * * * * ls -la > /home/david/result-ls.log 2>&1
+
+# 범위 실행
+# 매일 1시 0분부터 30분까지 매분 tesh.sh 를 실행
+0-30 1 * * * ls -la > /home/david/result-ls.log 2>&1
+
+# 간격 실행
+# 매 10분마다 ls -la 를 실행
+*/10 * * * * ls -la > /home/david/result-ls.log 2>&1
+```
+
+### 
 # 개발 팁
 ### shell script 실행시 debug 출력
 ```
