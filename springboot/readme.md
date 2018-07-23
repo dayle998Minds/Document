@@ -44,6 +44,225 @@ selfsigned_localhost_sslserver, Jul 13, 2018, PrivateKeyEntry,
 Certificate fingerprint (SHA1): B4:25:29:B8:61:B4:EE:69:6D:D2:7B:AC:54:DE:6F:5C:80:AA:27:A1
 ...
 ```
+# 개발 가이드
+## Web Application 예제
+
+### Create the directory structure
+```
+$ mkdir dist-jar
+$ cd dist-jar
+$ mkdir -p src/main/java/hello/
+
+$ gradle init
+
+```
+### Create a web controller class
+```
+$ mkdir -p src/main/java/hello
+$ vi src/main/java/hello/HelloController.java
+
+package hello;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RestController
+public class HelloController {
+
+    @RequestMapping("/")
+    public String index() {
+        return "Greetings from Spring Boot!";
+    }
+
+}
+```
+### Create an Application class
+``` 
+$ vi src/main/java/hello/Application.java
+
+package hello;
+
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+    @Bean
+    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+        return args -> {
+
+            System.out.println("Let's inspect the beans provided by Spring Boot:");
+
+            String[] beanNames = ctx.getBeanDefinitionNames();
+            Arrays.sort(beanNames);
+            for (String beanName : beanNames) {
+                System.out.println(beanName);
+            }
+        };
+    }
+}
+```
+### Build
+$ vi build.gradle
+```
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'projectName'
+    version =  '0.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    // tag::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+}
+
+
+```
+#gradle build
+```
+$ gradle
+$ gradle bootjar 
+$ java -jar build/libs/projectName-0.1.jar
+
+```
+
+# 개발팁
+## Gradle + SpringBoot 실행 가능한 JAR 만들기
+build.gradle 에 io.spring.dependency-management 와 bootJar를 추가합니다.
+```
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'projectName'
+    version =  '0.1'
+}
+```
+아래와 같이 컴파일을 하면 모든 의존성 라이브러리가 포함된 jar파일을 생성됩니다.
+```
+$ gradle bootjar 
+$ java -jar build/libs/projectName-0.1.jar
+```
+## Gradle WAR 만들기
+tomcat설치는 아래를 참조하세요.
+### build.gradle 수정
+
+```
+apply plugin: 'war'
+
+war {
+    baseName = 'project-war'    
+}
+
+dependencies {
+    
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+}
+
+```
+### main class에 SpringBootServletInitializer 추가
+SpringBootServletInitializer를 추가하지 않으면 tomcat에서 실행이 되지 않습니다.
+
+### war파일 만들기
+```
+14:44 $ gradle build
+
+BUILD SUCCESSFUL in 0s
+2 actionable tasks: 1 executed, 1 up-to-date
+$ ll build/libs/
+total 15772
+drwxrwxr-x 2 david david     4096  7월 23 14:39 ./
+drwxrwxr-x 5 david david     4096  7월 23 12:14 ../
+-rw-rw-r-- 1 david david 16142096  7월 23 14:48 dist-war.war
+$ 
+```
+
+### tomcat에 복사 및 재시작
+``` 
+$ sudo cp build/libs/dist-war.war /var/lib/tomcat8/webapps/
+systemctl restart tomcat8
+
+```
+아래와 같이 파일명과 동일한 디렉토리가 생성되면 성공한것입니다.
+```
+$ ll
+total 15780
+drwxrwxr-x 4 tomcat8 tomcat8     4096  7월 23 14:40 ./
+drwxr-xr-x 4 root    root        4096  7월 23 11:58 ../
+drwxr-xr-x 5 tomcat8 tomcat8     4096  7월 23 14:40 dist-war/
+-rw-r--r-- 1 root    root    16141953  7월 23 14:40 dist-war.war
+drwxr-xr-x 3 root    root        4096  7월 23 11:58 ROOT/
+
+```
+http://127.0.0.1:8080/dist-war 에 접속 하면 정상적으로 나오는것을 확인할수 있습니다.
+
+## tomcat 설치
+```
+# tomcat 설치
+$ sudo apt-get install tomcat8
+# 서비스 실행
+$ systemctl restart tomcat8
+# 서비스 상태보기
+$ systemctl status tomcat8
+● tomcat8.service - LSB: Start Tomcat.
+   Loaded: loaded (/etc/init.d/tomcat8; bad; vendor preset: enabled)
+   Active: active (running) since 월 2018-07-23 11:59:43 KST; 10s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 19358 ExecStop=/etc/init.d/tomcat8 stop (code=exited, status=0/SUCCESS)
+  Process: 19374 ExecStart=/etc/init.d/tomcat8 start (code=exited, status=0/SUCCESS)
+    Tasks: 45
+   Memory: 111.4M
+      CPU: 3.591s
+   CGroup: /system.slice/tomcat8.service
+           └─19402 /usr/lib/jvm/default-java/bin/java -Djava.util.logging.config.file=/var/lib/tomcat8/conf/lo
+```
+http://127.0.0.1:8080으로 접속을 하면 됩니다.
+### tomcat 설치경로
+- HOME : /usr/share/tomcat8 
+- CONF :  /etc/tomcat8
+- LOG :  /var/log/tomcat8 
+- ROOT : /var/lib/tomcat8  
+#### Port 변경
+```
+$sudo vi /etc/tomcat8/server.xml
+
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               URIEncoding="UTF-8"
+               redirectPort="8443" />
+
+```
 
 ## Reference
 <http://btsweet.blogspot.com/2014/06/tls-ssl.html>
