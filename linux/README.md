@@ -120,6 +120,11 @@ grep -rl "특정문자" * | xargs sed -i 's/특정문자/바꿀문자/g'
 ```
 grep -rl "192.168.1.15" | xargs sed -i 's/192.168.1.15/10.122.66.35/g'
 ```
+### 파일 검색후 파일 복사
+```
+find . -name "*.txt" -exec cp -R {} /home/mine/{} \;
+```
+
 ### sudo 권한 추가
 root로 이동한다음 `visudo` 나 `vi /etc/sudoers` 입력후 아래와 같이 user(david)를 추가하면 됩니다.
 ```

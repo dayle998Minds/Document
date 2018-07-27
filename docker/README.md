@@ -237,6 +237,21 @@ $ sudo docker save -o redis.tar redis:latest
 $ sudo docker save ubuntu:14.04 > ubuntu14.04.tar
 $ sudo docker save ubuntu > ubuntu.tar
 ```
+```
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              16.04               f975c5035748        4 months ago        112 MB
+centos              7.4.1708            3afd47092a0e        8 months ago        197 MB
+$ sudo docker save ubuntu:16.04 > ubuntu-16.04.tar
+
+```
+현재의 컨테이너를 이미지로 저장후에 backup으로 만드는 방법 
+```
+$ sudo docker ps -a | grep oracle // Oracle 컨테이너가 존재하는지 확인 
+$ sudo docker commit oracle oracle_backup  // oracle 컨테이너를  'oracle_backup' 이라는 이미지로 저장
+$ sudo docker save oracle_backup > /backup/oracle_xx.tar  // 'oracle_xx.tar'  라는 이름으로 백업
+
+```
 ### tar파일에서 이미지를 생성 / load
 ```
 docker load <옵션>
