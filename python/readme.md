@@ -25,6 +25,76 @@ $ sudo pip uninstall django
 - virtualenv : Python 2 버전부터 사용해오던 가상환경 라이브러리, Python 3에서도 사용가능
 - conda : Anaconda Python을 설치했을 시 사용할 수있는 모듈
 - pyenv : pyenv의 경우 Python Version Manger임과 동시에 가상환경 기능을 플러그인 형태로 제공
+## conda
+윈도우의 경우 `Anaconda Prompt`를 실행하면 cmd창이 나온 상태에서 아래를 실행해야 합니다.
+### 빠른 사용법
+새로운 환경 구축하기:
+> conda create --name 환경명 python=3.6
+
+환경 활성화하기:
+> activate 환경명
+
+환경 비활성화하기:
+> deactivate 환경명 
+
+### 명령어 정리
+List all environments
+> conda info --envs
+
+Activate an environment	
+> source activate $ENVIRONMENT_NAME
+
+Deactivate an environment	
+> source deactivate
+
+Install a package	
+> conda install $PACKAGE_NAME	
+
+> pip install $PACKAGE_NAME
+
+Update a package	
+> conda update --name $ENVIRONMENT_NAME $PACKAGE_NAME	
+
+> pip install --upgrade $PACKAGE_NAME
+
+Update package manager	
+> conda update conda	
+
+> Linux/OSX: pip install -U pip Win: python -m pip install -U pip
+
+Uninstall a package	
+> conda remove --name $ENVIRONMENT_NAME $PACKAGE_NAME	
+
+> pip uninstall $PACKAGE_NAME
+
+Create an environment	
+> conda create --name $ENVIRONMENT_NAME python
+
+Search available packages	
+> conda search $SEARCH_TERM	
+
+> pip search $SEARCH_TERM
+
+List installed packages	
+> conda list --name $ENVIRONMENT_NAME	
+
+> pip list
+
+Create requirements file	
+> conda list --export	
+
+> pip freeze
+
+Install other package manager	
+> conda install pip	
+
+> pip install conda
+
+Install Python	
+> conda install python=x.x
+
+Update Python	
+> conda update python *
 
 ## virtualenv
 ### virtualenv 설치
