@@ -59,7 +59,7 @@ $ sudo apt-get install terminator
 ### ftp 서버 설치
 ```
 $ sudo apt-get install vsftpd
-$ sudo vi /etc/vsftpd.conf
+$ sudo vi /etc/vsftpd/vsftpd.conf
 $ sudo /etc/init.d/vsftpd restart 
 또는 
 $ service vsftpd restart 
