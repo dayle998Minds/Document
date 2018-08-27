@@ -8,8 +8,9 @@ epel = Extra Packages for Enterprise Linux→ 엔터프라이즈 리눅스를 �
 ```
 
 ### hot corner 없애기
-왼쪽상단에 마우스를 가져다 놓으면 Activities Overview 가 나와서 많이 불편하다.\
-없애기 위해서는 extension app을 받아서 실행을 시켜주면 된다.\
+왼쪽상단에 마우스를 가져다 놓으면 Activities Overview 가 나와서 많이 불편합니다.\
+gui 창에서 Tweaks를 실행한다음 extensions tab의 아래에 있는 Install Shell Extension에서 다운받은 zip을 추가해줍니다.
+다운로드 주소
 https://extensions.gnome.org/extension/118/no-topleft-hot-corner/
 
 ### windows 공유 
