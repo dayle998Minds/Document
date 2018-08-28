@@ -1,5 +1,5 @@
-# centos 설치후 기본 세팅
-### yum epel 저장소 추가
+# centos & ubunt 설치후 기본 세팅
+### yum epel 저장소 추가 [centos]
 Extra Packages for Enterprise Linux yum 저장소 추가\
 epel-release 설치\
 epel = Extra Packages for Enterprise Linux→ 엔터프라이즈 리눅스를 위한 추가 패키지
@@ -7,7 +7,7 @@ epel = Extra Packages for Enterprise Linux→ 엔터프라이즈 리눅스를 �
 # yum install epel-release
 ```
 
-### hot corner 없애기
+### hot corner 없애기 [centos]
 왼쪽상단에 마우스를 가져다 놓으면 Activities Overview 가 나와서 많이 불편합니다.\
 gui 창에서 Tweaks를 실행한다음 extensions tab의 아래에 있는 Install Shell Extension에서 다운받은 zip을 추가해줍니다.
 다운로드 주소
@@ -17,7 +17,7 @@ https://extensions.gnome.org/extension/118/no-topleft-hot-corner/
 WinSCP를 이용하여 scp로 접속
 https://winscp.net/eng/docs/lang:ko
 
-### chrome 설치
+### chrome 설치 [centos]
 1. create repo 파일
 ```
 # sudo vi /etc/yum.repos.d/google-chrome.repo
@@ -34,11 +34,8 @@ gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 # sudo yum update
 # yum install -y google-chrome-stable
 ```
-# ubuntu 설치후 기본 세팅
-### ubuntu launcher 
-gsettings set com.canonical.Unity.Launcher launcher-position Bottom
 
-### chrome 설치
+### chrome 설치 [ubuntu]
 
 ```
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -47,6 +44,9 @@ sudo apt-get update
 sudo apt-get -y install google-chrome-stable
 sudo apt-get -y install google-chrome-beta
 ```
+
+### ubuntu launcher [ubuntu]
+gsettings set com.canonical.Unity.Launcher launcher-position Bottom
 
 ### git 설치
 ```
