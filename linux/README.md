@@ -17,10 +17,26 @@ https://extensions.gnome.org/extension/118/no-topleft-hot-corner/
 WinSCP를 이용하여 scp로 접속
 https://winscp.net/eng/docs/lang:ko
 
-# 개발 관련 Tools 설치
+### chrome 설치
+1. create repo 파일
+```
+# sudo vi /etc/yum.repos.d/google-chrome.repo
+```
+```
+[google-chrome]
+name=google-chrome
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+```
+```
+# sudo yum update
+# yum install -y google-chrome-stable
+```
+# ubuntu 설치후 기본 세팅
 ### ubuntu launcher 
 gsettings set com.canonical.Unity.Launcher launcher-position Bottom
-
 
 ### chrome 설치
 
