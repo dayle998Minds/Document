@@ -76,9 +76,23 @@ $ sudo apt-get install terminator
 ```
 $ sudo apt-get install vsftpd
 $ sudo vi /etc/vsftpd/vsftpd.conf
-$ sudo /etc/init.d/vsftpd restart 
-또는 
-$ service vsftpd restart 
+재시작
+$ systemctl restart vsftpd
+자동실행
+$ systemctl enable vsftpd
+상태보기
+$ systemctl status vsftpd
+● vsftpd.service - Vsftpd ftp daemon
+   Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Wed 2018-09-05 10:00:21 KST; 6s ago
+  Process: 26364 ExecStart=/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf (code=exited, status=0/SUCCESS)
+ Main PID: 26367 (vsftpd)
+    Tasks: 1
+   CGroup: /system.slice/vsftpd.service
+           └─26367 /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+
+Sep 05 10:00:21 localhost.localdomain systemd[1]: Starting Vsftpd ftp daemon...
+Sep 05 10:00:21 localhost.localdomain systemd[1]: Started Vsftpd ftp daemon.
 ```
 주요 vsftpd.conf 내용
 - FTP의 포트 변경
